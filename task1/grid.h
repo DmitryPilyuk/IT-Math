@@ -11,10 +11,11 @@ typedef struct d_grid
     double eps;
     double **u;
     double **f;
+    size_t block_size;
     size_t size;
 } d_grid;
 
-d_grid *create_grid(size_t size, f_R2_to_R f, f_R2_to_R g, double eps);
+d_grid *create_grid(size_t size, f_R2_to_R f, f_R2_to_R g, double eps, size_t block_size);
 
 void free_grid(d_grid *grid);
 

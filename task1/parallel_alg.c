@@ -4,12 +4,12 @@
 
 double compute_block(d_grid *grid, size_t x, size_t y)
 {
-    size_t i0 = 1 + BLOCK_SIZE * x;
-    size_t j0 = 1 + BLOCK_SIZE * y;
+    size_t i0 = 1 + grid->block_size * x;
+    size_t j0 = 1 + grid->block_size * y;
     double dm = 0;
-    for (size_t i = i0; i < min(i0 + BLOCK_SIZE, grid->size - 1); i++)
+    for (size_t i = i0; i < min(i0 + grid->block_size, grid->size - 1); i++)
     {
-        for (size_t j = j0; j < min(j0 + BLOCK_SIZE, grid->size - 1); j++)
+        for (size_t j = j0; j < min(j0 + grid->block_size, grid->size - 1); j++)
         {
             double temp = grid->u[i][j];
             grid->u[i][j] =
@@ -27,7 +27,7 @@ double compute_block(d_grid *grid, size_t x, size_t y)
 size_t compute_parallel(d_grid *grid)
 {
     size_t sz = grid->size - 2;
-    int number_of_blocks = sz / BLOCK_SIZE + (sz % BLOCK_SIZE != 0 ? 1 : 0);
+    int number_of_blocks = sz / grid->block_size + (sz % grid->block_size != 0 ? 1 : 0);
     size_t k = 0;
     double d_max;
     double *dm = calloc(number_of_blocks, sizeof(double));

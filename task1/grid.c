@@ -21,11 +21,12 @@ void free_2d_arr(double **arr, size_t size)
     arr = NULL;
 }
 
-d_grid *create_grid(size_t size, f_R2_to_R f, f_R2_to_R g, double eps)
+d_grid *create_grid(size_t size, f_R2_to_R f, f_R2_to_R g, double eps, size_t block_size)
 {
     d_grid *grid = malloc(sizeof(d_grid));
     grid->size = size;
     grid->eps = eps;
+    grid->block_size = block_size;
     grid->h = 1 / (double)(size - 1);
     grid->f = create_2d_arr(size);
     grid->u = create_2d_arr(size);
