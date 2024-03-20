@@ -14,17 +14,7 @@ int main()
     int threads = 8;
     double eps = 0.01;
     experiment_res res[len_size][len_block_size];
-    double ts[len_size][len_block_size];
-    size_t iters[len_size][len_block_size];
     int n_of_experiments = 10;
-    for (size_t i = 0; i < len_size; i++)
-    {
-        for (size_t j = 0; j < len_block_size; j++)
-        {
-            ts[i][j] = 0.0;
-            iters[i][j] = 0;
-        }
-    }
     for (int k = 0; k < n_of_experiments; k++)
     {
         for (size_t i = 0; i < len_size; i++)
@@ -34,15 +24,6 @@ int main()
                 {
                     res[i][j] = run_parallel(f1, u1, size[i], eps, threads, block_size[j]);
                 }
-            }
-        }
-
-        for (size_t i = 0; i < len_size; i++)
-        {
-            for (size_t j = 0; j < len_block_size; j++)
-            {
-                ts[i][j] = res[i][j].dt;
-                iters[i][j] = res[i][j].number_of_iterations;
             }
         }
         FILE *fpt;
@@ -60,7 +41,7 @@ int main()
             fprintf(fpt, "%lu", size[i]);
             for (size_t j = 0; j < len_block_size; j++)
             {
-                fprintf(fpt, ", %lu, %f", iters[i][j], ts[i][j]);
+                fprintf(fpt, ", %lu, %f", res[i][j].number_of_iterations, res[i][j].dt);
             }
             fprintf(fpt, "\n");
         }

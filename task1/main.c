@@ -13,7 +13,7 @@ int main()
     size_t size[] = {100, 500, 1000, 1500, 2000};
     int threads[] = {1, 4, 8, 16};
     f_R2_to_R f[] = {f1, f2};
-    f_R2_to_R u[] = {u1, f1};
+    f_R2_to_R u[] = {u1, u2};
     size_t block_size = 32;
     size_t len_size = sizeof(size) / sizeof(size[0]);
     size_t len_f = sizeof(f) / sizeof(f[0]);

@@ -1,4 +1,4 @@
-FLAGS = -Wall -Wextra -Wpedantic -O3
+FLAGS = -Wall -Wextra -Wpedantic -O0
 
 .PHONY: all clean
 
