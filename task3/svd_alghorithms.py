@@ -6,7 +6,7 @@ import util
 from math import sqrt
 import numpy as np
 
-EPS = 0.01
+EPS = 0.1
 
 
 def numpy_svd(matrix: np.matrix, k):
@@ -75,3 +75,27 @@ def power_svd(A, k):
 
     s, u, vh = [np.array(x) for x in zip(*svdSoFar)]
     return util.SVD(np.matrix(u.T), s, vh)
+
+
+ADV_EPS = 0.1
+
+
+def advanced_svd(a: np.matrix, k: int):
+    n, m = a.shape
+    err = ADV_EPS + 1
+
+    v: np.matrix = np.matrix([np.random.normal(0, 1, size=m) for _ in range(k)]).T
+    s: np.matrix
+    u: np.matrix
+    while True:
+        q, r = np.linalg.qr(a * v)
+        u = np.matrix(q[:, 0:k], dtype=np.float32)
+
+        q, r = np.linalg.qr(a.T * u)
+        v = np.matrix(q[:, 0:k], dtype=np.float32)
+
+        s = np.matrix(np.diag([r[i, i] for i in range(k)]), dtype=np.float32)
+        err = np.linalg.norm(a * v - u * s)
+        if err < ADV_EPS:
+            break
+    return util.SVD(u, np.diagonal(s), v.T)

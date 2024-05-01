@@ -33,7 +33,7 @@ if __name__ == "__main__":
         elif args.method == 'numpy':
             svd_alg = numpy_svd
         elif args.method == 'advanced':
-            svd_alg = get_svd_advanced
+            svd_alg = advanced_svd
         else:
             print("Unknown method")
             exit(1)
